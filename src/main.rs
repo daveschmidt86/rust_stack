@@ -1,25 +1,35 @@
 
 mod stack;
 
+
+struct User {
+    username: String,
+    email: String,
+    sign_in_count: u64,
+    active: bool,
+}
+
 fn main() {
 
-    let mut stack = stack::Stack::<u32>::with_capacity(10);
-    stack.push(1);
-    stack.push(2);
-    stack.push(3);
-    stack.push(4);
-    stack.push(5);
-    stack.push(6);
-    stack.push(7);
-    stack.push(8);
-    stack.push(9);
-    stack.push(10000);
-    stack.push(11);
-    stack.push(12);
-    stack.push(13);
+    let mut stack = stack::Stack::<User>::with_capacity(10);
+
+    for n in 0..11 {
+        let some_user = User {
+            username: String::from("tester"),
+            email: String::from("something@something.com"),
+            sign_in_count: n,
+            active: true
+        };
+        stack.push(some_user);
+    }
     let popped = stack.pop();
         match popped {
-            Some(v) => println!("{}", v),
+            Some(v) => 
+            {
+                println!("{}", v.username);
+                println!("{}", v.sign_in_count);
+                println!("{}", v.email);
+            },
             None => println!("stack full")
         }
     println!("{}", stack.size());
